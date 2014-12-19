@@ -1,0 +1,108 @@
+\documentclass[12pt]{article}
+
+
+\usepackage[margin=1in]{geometry}  % set the margins to 1in on all sides
+\usepackage{graphicx}              % to include figures
+\usepackage{amsmath}               % great math stuff
+\usepackage{amsfonts}              % for blackboard bold, etc
+\usepackage{amsthm}                % better theorem environments
+\theoremstyle{definition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{mydef}{Definition}
+\newtheorem{ex}[thm]{Example}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{conj}[thm]{Conjecture}
+
+\DeclareMathOperator{\id}{id}
+
+\newcommand{\bd}[1]{\mathbf{#1}}  % for bolding symbols
+\newcommand{\RR}{\mathbb{R}}      % for Real numbers
+\newcommand{\ZZ}{\mathbb{Z}}      % for Integers
+\newcommand{\col}[1]{\left[\begin{matrix} #1 \end{matrix} \right]}
+\newcommand{\comb}[2]{\binom{#1^2 + #2^2}{#1+#2}}
+
+
+\begin{document}
+
+
+\nocite{*}
+
+\title{Balanced Incomplete Block Designs}
+
+\author{Rachel Rivera\\ 
+Computer Science Department \\
+Loyola Marymount University \\
+}
+
+\maketitle
+
+\begin{abstract}
+  The origins of combinatorial design theory lie within recreational mathematics. With the work of Fisher and Yates in the 1930s, combinatorial design theory began to take on the character of a serious academic subject with its applications to statistical experimentation, tournament scheduling, mathematical biology, algorithm design and analysis, and cryptography.\cite{Stinson:2008:CDC:1466390.1466393} This paper aims to provide an introduction to BIBDs (Balanced Incomplete Block Designs), identify the necessary conditions on $v$, $k$, and $\lambda$ such that (v, k, $\lambda$)-BIBDs exist, and discuss the application of BIBDs to the Social Golfer Problem.
+\end{abstract}
+
+
+\section{Introduction}
+The statistician F. Yates studied subsets of a set subject to certain balance properties in his 1936 paper. \cite{Yates} In the paper he defined what has become known as \textit{(v, k, $\lambda$) balanced incomplete block designs}: 
+\begin{mydef}\label{bibd}
+  A \textit{$\left\{v, k, \lambda \right\}$ balanced incomplete block design} (BIBD) is a collection of $k$-element 
+  subsets (called $blocks$) of a $v$-element set $S$ ($k$ $<$ v) such that each 2-element 
+  subset of $S$ is contained in exactly $\lambda$ blocks.\cite{Yates}
+\end{mydef}
+A BIBD is called ``balanced'' because every pair of distinct elements is contained in exactly $\lambda$ blocks. Since $k$ $<$ $v$, no block can contain all elements of $S$, hence the designation ``incomplete''. Yates gave the following example of a (6,3,2)-BIBD in his paper: 
+\begin{ex}
+  S = $\left\{a, b, c, d, e, f\right\}$ with the following 10 3-element blocks:  
+$\left\{a, b, c\right\}$, $\left\{a, b, d\right\}$, $\left\{a, c, e\right\}$, $\left\{a, d, f\right\}$, $\left\{a, e, f\right\}$, $\left\{b, c, e\right\}$, $\left\{b, d, e\right\}$, $\left\{b, e, f\right\}$, $\left\{c, d, e\right\}$, and $\left\{c, d, f\right\}$. 
+\end{ex}
+In this example, every element occurs in the same number of blocks. This property actually holds for all BIBDs, as shown in the following proof. \cite{Colbourn} 
+
+\begin{proof}\label{pf1}
+Let $x$ be an arbitrary element such that $x \in S$. Suppose $x$ occurs in $r$ blocks. In each of these blocks, $x$ makes a pair with $k-1$ other elements, so altogether there are $r(k-1)$ pairs involving $x$. But, $x$ is paired with the other $v-1$ elements exactly $\lambda$ times, so $r(k-1) = \lambda(v-1)$. This shows that $r$ is independent of the choice of $x$, being uniquely determined by $v$, $k$, and $\lambda$. 
+\end{proof}
+Thus, in a ($v, k, \lambda$) design with $b$ blocks, each element occurs in exactly $r$ blocks, and, as noted in the \textit{CRC Handbook of Combinatorial Designs}\cite{Colbourn}, the following equivalencies hold:
+\begin{center}
+\begin{enumerate}
+\item $\lambda(v-1) = r(k-1)$
+\item $bk = vr$
+\end{enumerate}
+\end{center}
+
+The first equivalence was established in the first proof. The second equivalence can be explained by noting that since each of the $v$ elements appear in $r$ blocks, there are $vr$ appearances of elements in blocks. And since each of the $b$ blocks has $k$ elements, $vr = bk$.
+
+\section{Resolvable Designs}
+\begin{mydef}
+A BIBD is \textit{resolvable} if its blocks can be partitioned into $c$ classes such that each element of the design occurs in exactly one of the $v/k = b/c$ groups of each class. The classes are called \textit{parallel classes} or \textit{resolution classes}. The partition into classess is called a \textit{resolution}. \cite{Triska}
+\end{mydef}
+Consider the following (15, 3, 1)-design consisting of 35 blocks:
+\begin{center}
+\begin{tabular}{lllllll} 
+(1,2,3) & (1,4,7 ) & (1,5,10) & (1,6,15) & (1,8,11) &  (1,9,13) & (1,12,14) \\
+(4,5,6) & (2,5,8) & (2,6,12) & (2,4,13) &  (2,7,14) & (2,11,15) & (2,9,10) \\
+(7,8,9) & (3,10,13) & (3,8,15) & (3,7,12) &  (3,6,9) & (3,5,14) & (3,4,11) \\
+(10,11,12) & (6,11,14) & (4,9,14) & (5,9,11) &  (4,10,15) & (4,8,12) & (5,7,15) \\
+(13,14,15) & (9,12,15) & (7,11,13) & (8,10,14) &  (5,12,13) & (6,7,10) & (6,8,13)
+\end{tabular}
+\end{center}
+
+\begin{center}
+Each vertical group of 5 blocks is a resolution class.
+\end{center}
+\begin{thm}
+If $D$ is a resolvable ($v$, $k$, 1) design, then a resolution of $D$ into $w$ parallel classes is a solution for the SGP instance $\frac{v}{k}$--$k$--$w$.
+\end{thm}
+
+
+\section{Steiner Triple Systems}
+\begin{mydef}
+A \textit{Steiner triple system} STS($v$) of order $v$ is a ($v$, 3, 1)-BIBD.
+\end{mydef}
+
+\clearpage
+
+
+\bibliography{mybib}{}
+\bibliographystyle{plain}
+
+
+\end{document}
