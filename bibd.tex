@@ -75,6 +75,7 @@ Fisher also proved that the following inequality must hold:
 \begin{itemize}
 \item $b \geq $v
 \end{itemize}
+When the equality holds, any two blocks have the same number of elements in common. (//TODO: look into this more later)
 \begin{proof}
 Let A be the block incidence matrix of a ($v$, $k$, $\lambda$)-BIBD with $b$ blocks. The block incidence matrix is a $v$ x $b$ incidence matrix A = ($a_{ij}$) such that:  
 \begin{equation*}
@@ -173,7 +174,20 @@ If $D$ is a resolvable ($v$, $k$, 1) design, then a resolution of $D$ into $w$ p
 The $v$ golfers correspond to elements $\left\{1, 2, 3, ...,v\right\}$. The design's blocks correspond to the group of golfers and the $w$ parallel classes are regarded as the weeks. By definition, each 2-element subset of $\left\{1, ...,v\right\}$ is contained in exactly one block. \cite{Triska}
 
 \subsection{Necessary and Sufficient Conditions for Resolvability}
-
+It has been shown in \cite{Bose} that for a \textit{resolvable} balanced incomplete block design, Fisher's inequality can be replaced by the more stringent inequality: 
+\begin{equation}
+v \geq v + r - 1
+\end{equation}
+When the equality holds, then two blocks belonging to different classes have the same number of elements in common. Balanced incomplete block designs with this property may be called \textit{affine} resolvable. 
+For a resolvable balanced incomplete block design, the number of elements common to two blocks of different classes has to be $k^{2}/v$. (This number must be \textit{integral})
+\begin{proof}
+Consider a bibd with parameters $v$, $b$, $r$, $k$, $\lambda$. If it is resolvable then $v = nk$ and $b = nr$ for some integer $n$ (recap of previously stated definition). The $b$ blocks are divisible into $r$ classes or $n$ blocks each such that the blocks of a given class give a complete replication (i.e. all the elements occur exactly once among the blocks of a given class). Let the blocks belonging to the ith class ($C_i$) be 
+\begin{equation}
+B_{i,1}, B_{i,2}, B_{i,3}, ... B_{i, n} (i = 0, 1, ... r-1)
+\end{equation}
+Let us take any particular block $B_{0,1}$ of class $C_0$ and let $l_{i, j}$ be the number of elements common to the block $B_{0,1}$ and the block $B_{i,j}$ of the class $C_i$, for i = 1, 2, ..., r - 1, j = 1, 2, ..., n. Let $m$ denote the mean.
+Each of the $k$ elements occuring in $B_{0,1}$ is replicated $r$ times. If an element occurs in $B_{0,1}$ then it cannot occur in the other blocks of the class $C_0$ (by definition of resolvability). Hence, it occurs just $r-1$ times among the blocks of the classes 
+\end{proof}
 \section{Steiner Triple Systems}
 \begin{mydef}
 A \textit{Steiner triple system} STS($v$) of order $v$ is a ($v$, 3, 1)-BIBD.
