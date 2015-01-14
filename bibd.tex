@@ -1,11 +1,12 @@
 \documentclass[12pt]{article}
 
-
+\usepackage{url}
 \usepackage[margin=1in]{geometry}  % set the margins to 1in on all sides
 \usepackage{graphicx}              % to include figures
 \usepackage{amsmath}               % great math stuff
 \usepackage{amsfonts}              % for blackboard bold, etc
 \usepackage{amsthm}                % better theorem environments
+\usepackage{amssymb,bm}
 \theoremstyle{definition}
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{mydef}{Definition}
@@ -62,14 +63,93 @@ Let $x$ be an arbitrary element such that $x \in S$. Suppose $x$ occurs in $r$ b
 \end{proof}
 Thus, in a ($v, k, \lambda$) design with $b$ blocks, each element occurs in exactly $r$ blocks, and, as noted in the \textit{CRC Handbook of Combinatorial Designs}\cite{Colbourn}, the following equivalencies hold:
 \begin{center}
-\begin{enumerate}
+\begin{itemize}
 \item $\lambda(v-1) = r(k-1)$
 \item $bk = vr$
-\end{enumerate}
+\end{itemize}
 \end{center}
 
 The first equivalence was established in the first proof. The second equivalence can be explained by noting that since each of the $v$ elements appear in $r$ blocks, there are $vr$ appearances of elements in blocks. And since each of the $b$ blocks has $k$ elements, $vr = bk$.
 
+Fisher also proved that the following inequality must hold: 
+\begin{itemize}
+\item $b \geq $v
+\end{itemize}
+When the equality holds, any two blocks have the same number of elements in common. (//TODO: look into this more later)
+\begin{proof}
+Let A be the block incidence matrix of a ($v$, $k$, $\lambda$)-BIBD with $b$ blocks. The block incidence matrix is a $v$ x $b$ incidence matrix A = ($a_{ij}$) such that:  
+\begin{equation*}
+a_{ij} = \begin{cases}
+               1 & : \text{ if the } i^{th} \text { element is in the } j^{th} \text { block} \\
+               0 & : \text{ otherwise}
+           \end{cases}
+\end{equation*}
+\begin{center}
+(See Example \ref{incidence-matrix})
+\end{center}
+If: 
+\begin{itemize}
+\item $A$ is $v\times{b}$
+\item $A^T$ is the transpose\footnote{A matrix formed by turning all rows into columns and vice-versa} of $A$
+\item $J_v$ is the all $v\times{v}$ 1's matrix
+\item $I_v$ is the $v\times{v}$ identity matrix\footnote{A square matrix with 1`s on the main diagonal and 0's elsewhere}
+\end{itemize}
+Then: 
+\begin{equation}
+A^T \cdot A = \left({a_{ij}}\right) = \left({r - \lambda}\right) I_v + \lambda J_v
+\end{equation} 
+That is:
+\begin{equation}
+A^T \cdot A = \begin{bmatrix} 
+r & \lambda & \cdots & \lambda \\
+\lambda & r & \cdots & \lambda \\
+\vdots & \vdots & \ddots & \vdots \\
+\lambda & \lambda & \cdots & r \\
+\end{bmatrix}
+\end{equation}
+From Necessary Condition for existence of BIBD\cite{necessaryBIBDCondition}:
+\begin{equation*}
+r > \lambda
+\end{equation*}
+So we can write $r = \lambda + \mu$ for some $\mu>0$ and so:
+\begin{equation}
+A^\intercal \cdot A = \begin{bmatrix} 
+\lambda + \mu & \lambda & \cdots & \lambda \\
+\lambda & \lambda + \mu & \cdots & \lambda \\
+\vdots & \vdots & \ddots & \vdots \\
+\lambda & \lambda & \cdots & \lambda + \mu \\
+\end{bmatrix}
+\end{equation}
+This is a combinatorial matrix of order $v$.
+So: 
+\begin{equation}
+\displaystyle \det \left({A^\intercal \cdot A}\right) = \displaystyle \mu^{v-1} \left ({\mu + v \lambda}\right)
+\end{equation}
+\begin{equation}
+\displaystyle \det \left({A^\intercal \cdot A}\right) = \displaystyle \left ({r + \left({v-1}\right) \lambda}\right) \left({r - \lambda}\right)^{v-1}
+\end{equation}
+\begin{equation}
+\displaystyle \det \left({A^\intercal \cdot A}\right) = \displaystyle r k \left({r - \lambda}\right)^{v-1}
+\end{equation}
+Now since $k < v$ and using the properties of a BIBD, we get that $r > \lambda$. So $\det \left({A^\intercal A}\right) \ne 0$. Since $A^\intercal A$ is a $v\times{v}$ matrix, then the rank, $\rho$, of $A^\intercal A = v$.
+Using the facts that $\rho \left({A^\intercal A}\right) \le \rho \left({A}\right)$ and $\rho \left({A}\right) \le b$, (since $A$ only has $b$ columns), then $v \le \rho \left({A}\right) \le b$. \cite{FisherInequality}
+\end{proof}
+\begin{ex}\label{incidence-matrix}
+The incidence matrix, A, of a (7, 3, 1)-BIBD consisting of 7 blocks (numbered 1, 2, 3, 4, 5, 6, and 7 respectively):
+\begin{center}
+\begin{tabular}{lllllll} 
+(1,2,3) & (1,4,5) & (1,6,7) & (2,4,6) & (2,5,7) &  (3,4,7) & (3,5,6) \\
+\end{tabular}
+\end{center}
+\[A = \left( \begin{array}{ccccccc}
+1 & 1 & 1 & 0 & 0 & 0 & 0 \\
+1 & 0 & 0 & 1 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 & 1 & 1 \\
+0 & 1 & 0 & 1 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 & 1 & 0 & 1 \\
+0 & 0 & 1 & 1 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0 & 1 & 1 & 0 \end{array} \right)\]
+\end{ex}
 \section{Resolvable Designs}
 \begin{mydef}
 A BIBD is \textit{resolvable} if its blocks can be partitioned into $c$ classes such that each element of the design occurs in exactly one of the $v/k = b/c$ groups of each class. The classes are called \textit{parallel classes} or \textit{resolution classes}. The partition into classess is called a \textit{resolution}. \cite{Triska}
@@ -89,10 +169,25 @@ Consider the following (15, 3, 1)-design consisting of 35 blocks:
 Each vertical group of 5 blocks is a resolution class.
 \end{center}
 \begin{thm}
-If $D$ is a resolvable ($v$, $k$, 1) design, then a resolution of $D$ into $w$ parallel classes is a solution for the SGP instance $\frac{v}{k}$--$k$--$w$.
+If $D$ is a resolvable ($v$, $k$, 1) design, then a resolution of $D$ into $w$ parallel classes is a solution for the SGP instance $\frac{v}{k}$--$k$--$w$. \cite{Triska}
 \end{thm}
+The $v$ golfers correspond to elements $\left\{1, 2, 3, ...,v\right\}$. The design's blocks correspond to the group of golfers and the $w$ parallel classes are regarded as the weeks. By definition, each 2-element subset of $\left\{1, ...,v\right\}$ is contained in exactly one block. \cite{Triska}
 
-
+\subsection{Necessary and Sufficient Conditions for Resolvability}
+It has been shown in \cite{Bose} that for a \textit{resolvable} balanced incomplete block design, Fisher's inequality can be replaced by the more stringent inequality: 
+\begin{equation}
+v \geq v + r - 1
+\end{equation}
+When the equality holds, then two blocks belonging to different classes have the same number of elements in common. Balanced incomplete block designs with this property may be called \textit{affine} resolvable. 
+For a resolvable balanced incomplete block design, the number of elements common to two blocks of different classes has to be $k^{2}/v$. (This number must be \textit{integral})
+\begin{proof}
+Consider a bibd with parameters $v$, $b$, $r$, $k$, $\lambda$. If it is resolvable then $v = nk$ and $b = nr$ for some integer $n$ (recap of previously stated definition). The $b$ blocks are divisible into $r$ classes or $n$ blocks each such that the blocks of a given class give a complete replication (i.e. all the elements occur exactly once among the blocks of a given class). Let the blocks belonging to the ith class ($C_i$) be 
+\begin{equation}
+B_{i,1}, B_{i,2}, B_{i,3}, ... B_{i, n} (i = 0, 1, ... r-1)
+\end{equation}
+Let us take any particular block $B_{0,1}$ of class $C_0$ and let $l_{i, j}$ be the number of elements common to the block $B_{0,1}$ and the block $B_{i,j}$ of the class $C_i$, for i = 1, 2, ..., r - 1, j = 1, 2, ..., n. Let $m$ denote the mean.
+Each of the $k$ elements occuring in $B_{0,1}$ is replicated $r$ times. If an element occurs in $B_{0,1}$ then it cannot occur in the other blocks of the class $C_0$ (by definition of resolvability). Hence, it occurs just $r-1$ times among the blocks of the classes 
+\end{proof}
 \section{Steiner Triple Systems}
 \begin{mydef}
 A \textit{Steiner triple system} STS($v$) of order $v$ is a ($v$, 3, 1)-BIBD.
