@@ -1,4 +1,4 @@
 SGP
 ===
 
-Pruning Combinatorial Search Spaces Research
+Pruning Combinatorial Search Spaces Research (Social Golfer Problem)
